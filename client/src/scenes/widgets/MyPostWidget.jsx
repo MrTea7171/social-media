@@ -98,6 +98,8 @@ const MyPostWidget = ({ picturePath }) => {
                   border={`2px dashed ${palette.primary.main}`}
                   p="1rem"
                   sx={{ "&:hover": { cursor: "pointer" } }}
+                  width="100%"
+                  textAlign="center"
                 >
                   <input {...getInputProps()} />
                   {!image ? (
@@ -105,15 +107,63 @@ const MyPostWidget = ({ picturePath }) => {
                   ) : (
                     <FlexBetween>
                       <Typography>{image.name}</Typography>
-                      <EditOutlinedIcon />
+                      <EditOutlined />
                     </FlexBetween>
                   )}
                 </Box>
+                {image && (
+                  <IconButton onClick={() => setImage(null)}>
+                    <DeleteOutline />
+                  </IconButton>
+                )}
               </FlexBetween>
             )}
           </Dropzone>
         </Box>
       )}
+      <Divider sx={{ margin: "1.25rem 0" }} />
+      <FlexBetween>
+        <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
+          <ImageOutlined sx={{ color: mediumMain }} />
+          <Typography
+            color={mediumMain}
+            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+          ></Typography>
+        </FlexBetween>
+        {isNonMobileScreens ? (
+          <>
+            <FlexBetween gap="0.25rem">
+              <GifBoxOutlined sx={{ color: mediumMain }} />
+              <Typography color={mediumMain}>Clip</Typography>
+            </FlexBetween>
+
+            <FlexBetween gap="0.25rem">
+              <AttachFileOutlined sx={{ color: mediumMain }} />
+              <Typography color={mediumMain}>Attachment</Typography>
+            </FlexBetween>
+
+            <FlexBetween gap="0.25rem">
+              <MicOutlined sx={{ color: mediumMain }} />
+              <Typography color={mediumMain}>Audio</Typography>
+            </FlexBetween>
+          </>
+        ) : (
+          <FlexBetween>
+            <MoreHorizOutlined sx={{ color: mediumMain }} />
+          </FlexBetween>
+        )}
+        <Button
+          disabled={!post}
+          onClick={handlePost}
+          sx={{
+            color: palette.background.alt,
+            backgroundColor: palette.primary.main,
+            borderRadius: "3rem",
+          }}
+        >
+          POST
+        </Button>
+      </FlexBetween>
     </WidgetWrapper>
   );
 };
